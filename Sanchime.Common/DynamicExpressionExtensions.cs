@@ -11,26 +11,6 @@ public static class DynamicExpressionExtensions
 
     private readonly static MethodInfo EnumParseMethod = typeof(Enum).GetMethod(nameof(Enum.Parse), [typeof(Type), typeof(string)])!;
 
-
-    public static PaginatedResult<TResponse> ToPageList<TResponse>(this IQueryable<TResponse> queryable, DynamicQuery query)
-       where TResponse : class
-    {
-        var where = queryable.Where(query.Filters);
-        return where.ToPageList(query.PageIndex, query.PageSize);
-    }
-
-    public static PaginatedResult<TResponse> ToPageList<TResponse>(this IQueryable<TResponse> queryable, int page, int pageSize)
-    {
-        int count = queryable.Count();
-        if (pageSize == -1)
-        {
-            return new (queryable.ToList(), page, pageSize, count);
-        }
-
-        var items = queryable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        return new (items, count, page, pageSize);
-    }
-
     /// <summary>
     /// 动态查询
     /// </summary>

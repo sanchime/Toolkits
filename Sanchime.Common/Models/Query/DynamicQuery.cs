@@ -1,6 +1,6 @@
 ﻿namespace Sanchime.Common.Models.Query;
 
-public sealed class DynamicQuery
+public class DynamicQuery : IPageableObject
 {
     public int PageIndex { get; set; } = 1;
 
