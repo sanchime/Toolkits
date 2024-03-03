@@ -1,6 +1,6 @@
 ﻿namespace Sanchime.Common.Models;
 
-public interface ITraceableData
+public interface ITraceableEntity
 {
     public long CreatedUser { get; set; }
 

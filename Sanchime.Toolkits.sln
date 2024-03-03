@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.AspNetCore.WebApi.Demo", "Sanchime.AspNetCore.WebApi.Demo\Sanchime.AspNetCore.WebApi.Demo.csproj", "{A2269058-1F90-4EB6-828C-C72E88AF75C1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.EventFlows", "Sanchime.EventFlows\Sanchime.EventFlows.csproj", "{FB99090C-20FA-4C95-8106-BA9401A4C36E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.Common", "Sanchime.Common\Sanchime.Common.csproj", "{EDDC5A4D-BCB9-4EFB-AF60-B5C45CD03597}"
@@ -15,16 +13,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.EntityFrameworkCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.AspNetCore", "Sanchime.AspNetCore\Sanchime.AspNetCore.csproj", "{2F2592FF-51F1-48C5-927D-89286D20C161}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F51FC448-CD1A-4EE7-9B5A-5D3060E9DA1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.Identity.WebApi", "Sanchime.Identity.WebApi\Sanchime.Identity.WebApi.csproj", "{969B4DE8-F167-4894-94DF-C3E4D63B07D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.Identity", "Sanchime.Identity\Sanchime.Identity.csproj", "{6FCBCC0C-F83E-4778-9C57-60C12363D890}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A2269058-1F90-4EB6-828C-C72E88AF75C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2269058-1F90-4EB6-828C-C72E88AF75C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2269058-1F90-4EB6-828C-C72E88AF75C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2269058-1F90-4EB6-828C-C72E88AF75C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB99090C-20FA-4C95-8106-BA9401A4C36E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB99090C-20FA-4C95-8106-BA9401A4C36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB99090C-20FA-4C95-8106-BA9401A4C36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,9 +45,21 @@ Global
 		{2F2592FF-51F1-48C5-927D-89286D20C161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F2592FF-51F1-48C5-927D-89286D20C161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F2592FF-51F1-48C5-927D-89286D20C161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969B4DE8-F167-4894-94DF-C3E4D63B07D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969B4DE8-F167-4894-94DF-C3E4D63B07D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969B4DE8-F167-4894-94DF-C3E4D63B07D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969B4DE8-F167-4894-94DF-C3E4D63B07D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{969B4DE8-F167-4894-94DF-C3E4D63B07D4} = {F51FC448-CD1A-4EE7-9B5A-5D3060E9DA1E}
+		{6FCBCC0C-F83E-4778-9C57-60C12363D890} = {F51FC448-CD1A-4EE7-9B5A-5D3060E9DA1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F678B13F-94CD-45EC-9A0D-332A64409ED9}

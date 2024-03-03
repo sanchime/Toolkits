@@ -1,0 +1,6 @@
+@Sanchime.Identity.WebApi_HostAddress = http://localhost:5058
+
+GET {{Sanchime.Identity.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

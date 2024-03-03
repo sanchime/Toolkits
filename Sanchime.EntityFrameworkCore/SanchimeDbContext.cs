@@ -71,7 +71,7 @@ public abstract class SanchimeDbContext : DbContext, IUnitOfWork
                     }
                 }
 
-                if (entry.Entity is ITraceableData traceable)
+                if (entry.Entity is ITraceableEntity traceable)
                 {
                     if (entry.State is EntityState.Added)
                     {
@@ -142,7 +142,7 @@ public abstract class SanchimeDbContext : DbContext, IUnitOfWork
     {
         try
         {
-            _currentTransaction?.Rollback();
+            _currentTransaction?.RollbackAsync();
         }
         finally
         {
