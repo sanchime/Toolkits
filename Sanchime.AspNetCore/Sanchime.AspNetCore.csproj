@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sanchime.Common\Sanchime.Common.csproj" />
+    <ProjectReference Include="..\Sanchime.DependencyInjection\Sanchime.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Sanchime.EntityFrameworkCore\Sanchime.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Sanchime.EventFlows\Sanchime.EventFlows.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+@Sanchime.AspNetCore.WebApi.Demo_HostAddress = http://localhost:5056
+
+GET {{Sanchime.AspNetCore.WebApi.Demo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
