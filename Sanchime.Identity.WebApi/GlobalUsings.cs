@@ -1,12 +1,9 @@
-﻿global using System.Security.Claims;
-global using AutoMapper;
-global using AutoMapper.QueryableExtensions;
-global using Microsoft.EntityFrameworkCore;
+﻿global using Microsoft.EntityFrameworkCore;
+global using Sanchime.AspNetCore;
 global using Sanchime.Common.Models;
 global using Sanchime.EventFlows;
 global using Sanchime.Identity.Commands;
 global using Sanchime.Identity.Contexts;
-global using Sanchime.Identity.Entities;
-global using Sanchime.Identity.Helpers;
 global using Sanchime.Identity.Queries;
 global using Sanchime.Identity.Responses;
+global using Sanchime.Identity.WebApi.Requests;

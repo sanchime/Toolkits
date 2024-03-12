@@ -1,21 +1,26 @@
-using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Sanchime.AspNetCore;
-using Sanchime.EventFlows;
 using Sanchime.Identity;
 using Sanchime.ProjectManager.WebApi.ApiGroups;
 using System.Text;
-
+using Sanchime.Identity.WebApi;
+using Sanchime.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
-builder.Services.AddEventFlow();
+builder.Services.AddEventFlow(option =>
+{
+    option.RegisterAssemblies(typeof(IdentityContext).Assembly);
+});
+builder.Services.AddDbContext<IdentityContext>(option =>
+{
+    option.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection"));
+});
 
 builder.Services.Configure<IdentityConfiguration>(builder.Configuration.GetSection(nameof(IdentityConfiguration)));
 builder.Services.AddOptions<IdentityConfiguration>();
 
-builder.Services.AddSingleton<IMapper, Mapper>();
+builder.Services.AddAutoMapper(typeof(IdentityContext).Assembly);
 
 
 builder.Services.AddAuthentication(options =>
@@ -50,6 +55,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UsePrimitiveConfigure();
 
+await app.Services.MigrateDatabaseAsync<IdentityContext, IdentityDataSeeder>();
 
 app.UseMiniApi()
     .RequireAuthorization()

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster.EFCore" Version="5.1.2-pre01" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
   </ItemGroup>

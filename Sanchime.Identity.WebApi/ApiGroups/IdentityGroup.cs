@@ -1,18 +1,14 @@
-﻿using Sanchime.AspNetCore;
-using Sanchime.Identity.Commands;
-using Sanchime.Identity.Queries;
-using Sanchime.Identity.Responses;
-using Sanchime.Identity.WebApi.Requests;
-namespace Sanchime.ProjectManager.WebApi.ApiGroups;
+﻿namespace Sanchime.ProjectManager.WebApi.ApiGroups;
 
 public static class IdentityGroup
 {
     public static IEndpointRouteBuilder AddIdentityGroup(this IEndpointRouteBuilder endpoint)
     {
         endpoint.MapGroup("identity")
-            .AddAccountApi()
             .AddUserApi()
+            .AddAccountApi()
             .AddRoleApi()
+            .AddPermissionApi()
             ;
 
         return endpoint;
@@ -34,6 +30,7 @@ public static class IdentityGroup
     {
         var api = endpoint.MapGroup("user").WithTags("用户管理")
             .MapGet<GetUserByIdQuery, UserResponse>("{UserId}")
+            .MapGet<GetUserListQuery, PaginatedResult<UserResponse>>()
             .MapPost<AddUserCommand>()
             .MapPut<UserByIdRequest, UserUpdateRequest, UpdateUserCommand>("{UserId}", (p, b) => new UpdateUserCommand(p.UserId, b.UserName))
             .MapDelete<DeleteUserCommand>("{UserId}");
@@ -52,6 +49,13 @@ public static class IdentityGroup
             .MapPut<RoleByIdRequest, RoleRequest, UpdateRoleCommand>("{RoleId}", (p, b) => new (p.RoleId, b.RoleCode, b.RoleName, b.Description))
             .MapPost<AddRoleCommand>()
             .MapDelete<DeleteRoleCommand>("{RoleId}");
+        return endpoint;
+    }
+
+    private static IEndpointRouteBuilder AddPermissionApi(this IEndpointRouteBuilder endpoint)
+    {
+        var api = endpoint.MapGroup("permission").WithTags("权限管理");
+        api.MapGet<GetPermissionListQuery, PaginatedResult<PermissionResponse>>();
         return endpoint;
     }
 }

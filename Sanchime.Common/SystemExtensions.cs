@@ -13,14 +13,14 @@ public static class SystemExtensions
         return nullable;
     }
 
-    public static TParser? Parse<TParser>(this string? input)
-        where TParser : IParsable<TParser>
+    public static TParsableObject? Parse<TParsableObject>(this string? input)
+        where TParsableObject : IParsable<TParsableObject>
     {
         if (input is null)
         {
             return default!;
         }
-        _ = TParser.TryParse(input, null,  out var result);
+        _ = TParsableObject.TryParse(input, null,  out var result);
         return result;
     }
 
@@ -34,4 +34,8 @@ public static class SystemExtensions
         => JsonSerializer.Serialize(data, options);
     public static TData FromJson<TData>(this string input, JsonSerializerOptions? options = null)
         => JsonSerializer.Deserialize<TData>(input, options)!;
+
+    public static bool IsNullOrEmpty(this string input) => String.IsNullOrEmpty(input);
+
+    public static bool IsNullOrWhiteSpace(this string input) => String.IsNullOrWhiteSpace(input);
 }
