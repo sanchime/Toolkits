@@ -6,6 +6,7 @@ using System.Text;
 using Sanchime.Identity.WebApi;
 using Sanchime.EntityFrameworkCore;
 using FluentValidation;
+using MapsterMapper;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
@@ -26,8 +27,7 @@ builder.Services.AddDbContext<IdentityContext>(option =>
 builder.Services.Configure<IdentityConfiguration>(builder.Configuration.GetSection(nameof(IdentityConfiguration)));
 builder.Services.AddOptions<IdentityConfiguration>();
 
-builder.Services.AddAutoMapper(typeof(IdentityContext).Assembly);
-
+builder.Services.AddSingleton<IMapper, Mapper>();
 
 builder.Services.AddAuthentication(options =>
 {

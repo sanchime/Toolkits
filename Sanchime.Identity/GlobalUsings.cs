@@ -1,6 +1,6 @@
 ﻿global using System.Security.Claims;
-global using AutoMapper;
-global using AutoMapper.QueryableExtensions;
+global using Mapster;
+global using MapsterMapper;
 global using Microsoft.EntityFrameworkCore;
 global using Sanchime.Common.Models;
 global using Sanchime.EventFlows;

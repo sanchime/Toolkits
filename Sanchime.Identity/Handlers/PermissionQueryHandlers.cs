@@ -1,15 +1,14 @@
-﻿
-using Sanchime.EntityFrameworkCore;
+﻿using Sanchime.EntityFrameworkCore;
 
 namespace Sanchime.Identity.Handlers;
 
-public class PermissionQueryHandlers(IdentityContext context, IMapper mapper) :
+public class PermissionQueryHandlers(IdentityContext context) :
     IQueryHandler<GetPermissionListQuery, PaginatedResult<PermissionResponse>>
 {
     public async Task<PaginatedResult<PermissionResponse>> Handle(GetPermissionListQuery query, CancellationToken cancellation = default)
     {
         return await context.Permissions
-            .ProjectTo<PermissionResponse>(mapper.ConfigurationProvider)
+            .ProjectToType<PermissionResponse>()
             .AsNoTracking()
             .ToPageListAsync(query);
     }
