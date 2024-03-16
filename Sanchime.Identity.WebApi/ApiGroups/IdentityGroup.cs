@@ -17,6 +17,7 @@ public static class IdentityGroup
     private static IEndpointRouteBuilder AddAccountApi(this IEndpointRouteBuilder endpoint)
     {
         var api = endpoint.MapGroup("account").WithTags("帐号管理");
+        api.MapPost<RegisterAccountCommand>("register");
         api.MapPost<LoginCommand, LoginResponse>("token", x => x.AllowAnonymous());
         api.MapPost<RefreshTokenCommand, LoginResponse>("token/refresh");
         api.MapPatch<AccountByIdRequest, ResetPasswordCommand>("{AccountId}/password/reset", (p) => new ResetPasswordCommand(p.AccountId));
@@ -46,7 +47,7 @@ public static class IdentityGroup
     {
         var api = endpoint.MapGroup("role").WithTags("角色管理")
             .MapGet<GetRoleListQuery, List<RoleResponse>>()
-            .MapPut<RoleByIdRequest, RoleRequest, UpdateRoleCommand>("{RoleId}", (p, b) => new (p.RoleId, b.RoleCode, b.RoleName, b.Description))
+            .MapPut<RoleByIdRequest, RoleRequest, UpdateRoleCommand>("{RoleId}", (p, b) => new (p.RoleId, b.Code, b.Name, b.Description))
             .MapPost<AddRoleCommand>()
             .MapDelete<DeleteRoleCommand>("{RoleId}");
         return endpoint;
@@ -56,6 +57,8 @@ public static class IdentityGroup
     {
         var api = endpoint.MapGroup("permission").WithTags("权限管理");
         api.MapGet<GetPermissionListQuery, PaginatedResult<PermissionResponse>>();
+        api.MapPost<AddPermissionCommand>();
+        api.MapPut<PermissionByIdRequest, PermissionRequest, UpdatePermissionCommand>("{PermissionId}", (p, b) => new (p.PermissionId, b.Code, b.Name, b.Description));
         return endpoint;
     }
 }

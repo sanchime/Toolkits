@@ -19,10 +19,15 @@ public static class WebApplicationExtensions
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseExceptionHandler(options =>
+        {
+            
+        });
         return app;
     }
 
-    public static RouteGroupBuilder UseMiniApi(this WebApplication app, [StringSyntax("Route")] string prefix = "api", params IEndpointFilter[]? filters)
+    public static RouteGroupBuilder UseMiniApi(this IEndpointRouteBuilder app, [StringSyntax("Route")] string prefix = "api", params IEndpointFilter[]? filters)
     {
         var api = app.MapGroup(prefix);
         if (filters is { Length : > 0})

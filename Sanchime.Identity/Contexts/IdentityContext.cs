@@ -62,7 +62,8 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
         });
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasMany(x => x.Permissions).WithOne(x => x.Role);
+            entity.HasMany(x => x.Permissions)
+                .WithMany(x => x.Roles);
 
             entity.HasOne(e => e.Parent)
                 .WithMany(e => e.Children)

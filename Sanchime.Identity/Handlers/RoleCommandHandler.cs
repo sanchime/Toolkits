@@ -7,12 +7,12 @@ public class RoleCommandHandler(IdentityContext context) :
 {
     public async Task Handle(AddRoleCommand command, CancellationToken cancellation = default)
     {
-        if (await context.Roles.AnyAsync(x => command.RoleCode == x.Code, cancellationToken: cancellation))
+        if (await context.Roles.AnyAsync(x => command.Code == x.Code, cancellationToken: cancellation))
         {
-            throw new Exception($"已经存在编号为{command.RoleCode}的角色了");
+            throw new Exception($"已经存在编号为{command.Code}的角色了");
         }
 
-        var role = new Role { Code = command.RoleCode, Name = command.RoleName, Description = command.Description };
+        var role = new Role { Code = command.Code, Name = command.Name, Description = command.Description };
         await context.Roles.AddAsync(role, cancellation);
         await context.SaveChangesAsync(cancellation);
     }
@@ -20,11 +20,11 @@ public class RoleCommandHandler(IdentityContext context) :
     public async Task Handle(UpdateRoleCommand command, CancellationToken cancellation = default)
     {
         var role = await context.Roles
-            .FirstOrDefaultAsync(x => x.Id == command.RoleId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new Exception("该角色不存在");
 
-        role.Name = command.RoleName;
-        role.Code = command.RoleCode;
+        role.Name = command.Name;
+        role.Code = command.Code;
         role.Description = command.Description;
 
         await context.SaveChangesAsync(cancellation);
@@ -33,7 +33,7 @@ public class RoleCommandHandler(IdentityContext context) :
     public async Task Handle(DeleteRoleCommand command, CancellationToken cancellation = default)
     {
         var role = await context.Roles
-            .FirstOrDefaultAsync(x => x.Id == command.RoleId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new Exception("该角色不存在");
 
         context.Roles.Remove(role);

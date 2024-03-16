@@ -27,8 +27,14 @@ public static class SystemExtensions
     public static string ToJoinString<T>(this IEnumerable<T> lists, string separator)
         => String.Join(separator, lists);
 
+    public static string ToJoinString<T, R>(this IEnumerable<T> lists, Func<T, R> mapper, string separator)
+        => String.Join(separator, lists.Select(mapper));
+
     public static string ToJoinString<T>(this IEnumerable<T> lists, char separator)
         => String.Join(separator, lists);
+
+    public static string ToJoinString<T, R>(this IEnumerable<T> lists, Func<T, R> mapper, char separator)
+       => String.Join(separator, lists.Select(mapper));
 
     public static string ToJson<TData>(this TData data, JsonSerializerOptions? options = null) 
         => JsonSerializer.Serialize(data, options);

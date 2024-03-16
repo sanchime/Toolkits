@@ -14,5 +14,5 @@ public class Permission : IdentityEntity
 
     public ICollection<Permission> Children { get; } = [];
 
-    public Role Role { get; set; } = null!;
+    public IList<Role> Roles { get; set; } = [];
 }

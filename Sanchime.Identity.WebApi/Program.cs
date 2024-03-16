@@ -5,12 +5,18 @@ using Sanchime.ProjectManager.WebApi.ApiGroups;
 using System.Text;
 using Sanchime.Identity.WebApi;
 using Sanchime.EntityFrameworkCore;
+using FluentValidation;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
 builder.Services.AddEventFlow(option =>
 {
     option.RegisterAssemblies(typeof(IdentityContext).Assembly);
+    // Ğ£ÑéÃüÁîÊÊÅäÆ÷
+    option.RegisterCommandDispatcher<CommandValidationDispatcher>();
 });
 builder.Services.AddDbContext<IdentityContext>(option =>
 {
@@ -45,7 +51,6 @@ builder.Services.AddAuthorization();
 
 // ·ÀÎ±
 builder.Services.AddAntiforgery();
-
 
 var app = builder.Build();
 
