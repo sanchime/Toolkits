@@ -18,22 +18,4 @@ public sealed record class EventFlowOption
     {
         Assemblies = [ ..assemblies, Assembly.GetCallingAssembly(), typeof(IEventFlowMediator).Assembly];
     }
-
-    public void RegisterCommandDispatcher<TCommandDispatcher>()
-        where TCommandDispatcher : ICommandExecuter
-    {
-        Services.Decorate<ICommandExecuter, TCommandDispatcher>();
-    }
-
-    public void RegisterQueryDispatcher<TQueryDispatcher>()
-        where TQueryDispatcher : IQueryRequester
-    {
-        Services.Decorate<IQueryRequester, TQueryDispatcher>();
-    }
-
-    public void RegisterEventDispatcher<TEventDispatcher>()
-        where TEventDispatcher : IEventPublisher
-    {
-        Services.Decorate<IEventPublisher, TEventDispatcher>();
-    }
 }

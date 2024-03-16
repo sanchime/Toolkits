@@ -5,7 +5,7 @@ namespace Sanchime.EventFlows;
 /// <summary>
 /// 命令分发器
 /// </summary>
-internal sealed class CommandExecuter(IServiceProvider serviceProvider) : ICommandExecuter
+internal sealed class CommandExecuter(IServiceProvider serviceProvider, IEventFlowPipelineDispatcher pipelineDispatcher) : ICommandExecuter
 {
     public async Task<TExecutedResult> Execute<TCommand, TExecutedResult>(TCommand command, CancellationToken cancellation = default)
         where TCommand : ICommand<TExecutedResult>
@@ -13,7 +13,7 @@ internal sealed class CommandExecuter(IServiceProvider serviceProvider) : IComma
         await using var scope = serviceProvider.CreateAsyncScope();
         var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<TCommand, TExecutedResult>>();
 
-        return await handler.Handle(command, cancellation);
+        return await pipelineDispatcher.Handle(command, handler.Handle, cancellation);
     }
 
     public async Task Execute<TCommand>(TCommand command, CancellationToken cancellation = default)
@@ -22,6 +22,10 @@ internal sealed class CommandExecuter(IServiceProvider serviceProvider) : IComma
         await using var scope = serviceProvider.CreateAsyncScope();
         var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<TCommand>>();
 
-        await handler.Handle(command, cancellation);
+        await pipelineDispatcher.Handle(command, async (cmd, ct) =>
+        {
+            await handler.Handle(cmd, ct);
+            return Unit.Value;
+        }, cancellation);
     }
 }

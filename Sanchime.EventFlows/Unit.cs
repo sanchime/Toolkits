@@ -1,4 +1,4 @@
-﻿namespace System;
+﻿namespace Sanchime.EventFlows;
 
 public readonly struct Unit
 {

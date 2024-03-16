@@ -10,6 +10,7 @@ public static class EventFlowExtensions
         RegisterDispatchers(services);
 
         services.TryAddSingleton<IEventFlowMediator, EventFlowMediator>();
+        services.TryAddSingleton<IEventFlowPipelineDispatcher, EventFlowPipelineDispatcher>();
 
         var options = new EventFlowOption(services);
 

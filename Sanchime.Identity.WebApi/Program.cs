@@ -16,8 +16,9 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddEventFlow(option =>
 {
     option.RegisterAssemblies(typeof(IdentityContext).Assembly);
-    // –£—È√¸¡Ó  ≈‰∆˜
-    option.RegisterCommandDispatcher<CommandValidationDispatcher>();
+
+    option.Services.AddSingleton(typeof(IEventFlowPipeline<,>), typeof(EventFlowLoggingPipeline<,>));
+    option.Services.AddSingleton(typeof(IEventFlowPipeline<,>), typeof(EventFlowValidationPipeline<,>));
 });
 builder.Services.AddDbContext<IdentityContext>(option =>
 {
