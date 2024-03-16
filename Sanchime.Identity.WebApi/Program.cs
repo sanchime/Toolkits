@@ -17,8 +17,8 @@ builder.Services.AddEventFlow(option =>
 {
     option.RegisterAssemblies(typeof(IdentityContext).Assembly);
 
-    option.Services.AddSingleton(typeof(IEventFlowPipeline<,>), typeof(EventFlowLoggingPipeline<,>));
-    option.Services.AddSingleton(typeof(IEventFlowPipeline<,>), typeof(EventFlowValidationPipeline<,>));
+    option.AddPipeline(typeof(EventFlowLoggingPipeline<,>));
+    option.AddPipeline(typeof(EventFlowValidationPipeline<,>));
 });
 builder.Services.AddDbContext<IdentityContext>(option =>
 {
