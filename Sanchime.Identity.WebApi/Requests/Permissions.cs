@@ -1,5 +1,5 @@
 ﻿namespace Sanchime.Identity.WebApi.Requests;
 
-public record PermissionByIdRequest(long PermissionId);
+public record struct PermissionByIdRequest(long PermissionId);
 
-public record PermissionRequest(string Code, string Name, string? Description);
+public record struct PermissionRequest(string Code, string Name, string? Description);

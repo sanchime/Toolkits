@@ -1,3 +1,3 @@
 ﻿namespace Sanchime.Identity.WebApi.Requests;
 
-public record UserRoleByUserIdRequest(long UserId);
+public record struct UserRoleByUserIdRequest(long UserId);

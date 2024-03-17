@@ -1,6 +1,6 @@
 ﻿namespace Sanchime.Identity.WebApi.Requests;
 
-public record AccountByIdRequest(long AccountId);
+public record struct AccountByIdRequest(long AccountId);
 
 
-public record AccountChangePasswordRequest(string Password, string NewPassword);
+public record struct AccountChangePasswordRequest(string Password, string NewPassword);

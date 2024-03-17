@@ -49,7 +49,8 @@ public static class IdentityGroup
             .MapGet<GetRoleListQuery, List<RoleResponse>>()
             .MapPut<RoleByIdRequest, RoleRequest, UpdateRoleCommand>("{RoleId}", (p, b) => new (p.RoleId, b.Code, b.Name, b.Description))
             .MapPost<AddRoleCommand>()
-            .MapDelete<DeleteRoleCommand>("{RoleId}");
+            .MapDelete<DeleteRoleCommand>("{RoleId}")
+            .MapPost<RoleByIdRequest, long[], UpdateRolePermissionCommand>("{RoleId}/permissions", (p, b) => new (p.RoleId, b));
         return endpoint;
     }
 

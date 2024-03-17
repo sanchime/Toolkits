@@ -7,6 +7,7 @@ using Sanchime.Identity.WebApi;
 using Sanchime.EntityFrameworkCore;
 using FluentValidation;
 using MapsterMapper;
+using Microsoft.AspNetCore.HttpLogging;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
@@ -52,7 +53,17 @@ builder.Services.AddAuthorization();
 
 // ·ÀÎ±
 builder.Services.AddAntiforgery();
-
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.RequestQuery 
+        | HttpLoggingFields.RequestScheme 
+        | HttpLoggingFields.RequestPath
+        | HttpLoggingFields.RequestMethod
+        | HttpLoggingFields.RequestProtocol
+        | HttpLoggingFields.ResponseStatusCode
+        | HttpLoggingFields.Duration;
+    options.CombineLogs = true;
+});
 var app = builder.Build();
 
 app.UseAntiforgery();
@@ -60,6 +71,7 @@ app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UsePrimitiveConfigure();
+app.UseHttpLogging();
 
 await app.Services.MigrateDatabaseAsync<IdentityContext, IdentityDataSeeder>();
 

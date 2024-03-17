@@ -3,7 +3,8 @@
 public class RoleCommandHandler(IdentityContext context) :
     ICommandHandler<AddRoleCommand>,
     ICommandHandler<UpdateRoleCommand>,
-    ICommandHandler<DeleteRoleCommand>
+    ICommandHandler<DeleteRoleCommand>,
+    ICommandHandler<UpdateRolePermissionCommand>
 {
     public async Task Handle(AddRoleCommand command, CancellationToken cancellation = default)
     {
@@ -37,6 +38,23 @@ public class RoleCommandHandler(IdentityContext context) :
             ?? throw new Exception("该角色不存在");
 
         context.Roles.Remove(role);
+
+        await context.SaveChangesAsync(cancellation);
+    }
+
+    public async Task Handle(UpdateRolePermissionCommand command, CancellationToken cancellation = default)
+    {
+        var role = await context.Roles
+            .Include(x => x.Permissions)
+            .FirstOrDefaultAsync(x => x.Id == command.RoleId, cancellationToken: cancellation)
+            ?? throw new Exception("该角色不存在");
+
+        var permissions = await context.Permissions
+            .Where(x => command.Permissions.Contains(x.Id))
+            .ToListAsync(cancellationToken: cancellation);
+
+        role.Permissions.Clear();
+        role.Permissions = permissions;
 
         await context.SaveChangesAsync(cancellation);
     }
