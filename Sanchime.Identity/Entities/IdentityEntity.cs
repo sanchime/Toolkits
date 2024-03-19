@@ -7,6 +7,8 @@ public abstract class IdentityEntity : Entity, IDeleteable, ITraceableEntity
 {
     public bool IsDeleted { get; set; } = false;
 
+    public bool IsEnabled { get; set; } = true;
+
     public long CreatedUser { get; set; }
 
     public string CreatedUserName { get; set; } = null!;

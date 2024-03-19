@@ -36,7 +36,15 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
             entity.HasKey(x => x.Id);
             entity.Ignore(x => x.DomainEvents);
             entity.HasIndex(x => x.IsDeleted);
+            entity.HasIndex(x => x.IsEnabled);
             entity.HasIndex(x => new { x.CreatedDate, x.CreatedUser, x.CreatedUserName, x.ModifiedDate, x.ModifiedUser, x.ModifiedUserName }).IsDescending();
+            
+            entity.Property(x => x.IsEnabled)
+                .HasDefaultValue(true);
+
+            entity.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+            
             entity.UseTpcMappingStrategy();
         });
 

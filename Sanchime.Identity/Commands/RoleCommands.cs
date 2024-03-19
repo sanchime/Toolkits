@@ -2,7 +2,7 @@
 
 public record AddRoleCommand(string Code, string Name, string? Description) : ICommand;
 
-public record UpdateRoleCommand(long Id, string Code, string Name, string? Description) : ICommand;
+public record UpdateRoleCommand(long Id, string Code, string Name, string? Description, bool IsEnabled) : ICommand;
 
 public record DeleteRoleCommand(long Id) : ICommand;
 

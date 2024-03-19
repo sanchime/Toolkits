@@ -2,4 +2,4 @@
 
 public record struct RoleByIdRequest(long RoleId);
 
-public record struct RoleRequest(string Code, string Name, string? Description);
+public record struct RoleRequest(string Code, string Name, string? Description, bool IsEnabled);

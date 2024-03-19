@@ -2,7 +2,7 @@
 
 public record AddUserCommand(string UserName) : ICommand;
 
-public record UpdateUserCommand(long UserId, string UserName) : ICommand;
+public record UpdateUserCommand(long UserId, string UserName, bool IsEnabled) : ICommand;
 
 public record DeleteUserCommand(long UserId) : ICommand;
 

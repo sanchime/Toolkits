@@ -2,4 +2,4 @@
 
 public record struct UserByIdRequest(long UserId);
 
-public record struct UserUpdateRequest(string UserName);
+public record struct UserUpdateRequest(string UserName, bool IsEnabled);
