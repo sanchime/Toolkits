@@ -1,4 +1,6 @@
-﻿namespace Sanchime.Common.Models.Query;
+﻿using Sanchime.Common.Models;
+
+namespace Sanchime.DynamicQueryable;
 
 public class DynamicQuery : IPageableObject
 {

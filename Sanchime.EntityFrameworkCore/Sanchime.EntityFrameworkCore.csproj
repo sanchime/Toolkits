@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sanchime.Common\Sanchime.Common.csproj" />
+    <ProjectReference Include="..\Sanchime.DynamicQueryable\Sanchime.DynamicQueryable.csproj" />
     <ProjectReference Include="..\Sanchime.EventFlows\Sanchime.EventFlows.csproj" />
   </ItemGroup>
 

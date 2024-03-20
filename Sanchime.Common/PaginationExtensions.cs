@@ -1,17 +1,9 @@
-﻿using Sanchime.Common.Models.Query;
-using Sanchime.Common.Models;
+﻿using Sanchime.Common.Models;
 
 namespace Sanchime.Common;
 
 public static class PaginationExtensions
 {
-    public static PaginatedResult<TResponse> ToPageList<TResponse>(this IQueryable<TResponse> queryable, DynamicQuery query)
-       where TResponse : class
-    {
-        var where = queryable.Where(query.Filters);
-        return where.ToPageList(query.PageIndex, query.PageSize);
-    }
-
     #region IQueryable
 
     public static PaginatedResult<TResponse> ToPageList<TResponse>(this IQueryable<TResponse> queryable, int page, int pageSize)

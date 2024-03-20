@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Query\" />
+    <ProjectReference Include="..\Sanchime.Common\Sanchime.Common.csproj" />
   </ItemGroup>
 
 </Project>

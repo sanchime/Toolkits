@@ -1,9 +1,8 @@
-﻿using Sanchime.Common.Models;
-using Sanchime.Common.Models.Query;
+﻿using Sanchime.DynamicQueryable;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Sanchime.Common;
+namespace Sanchime.DynamicQueryable;
 
 public static class DynamicExpressionExtensions
 {

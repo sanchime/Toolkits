@@ -1,4 +1,4 @@
-﻿namespace Sanchime.Common.Models.Query;
+﻿namespace Sanchime.DynamicQueryable;
 
 public enum DynamicOperationMode
 {

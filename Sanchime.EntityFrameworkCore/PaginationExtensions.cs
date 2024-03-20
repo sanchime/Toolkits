@@ -1,7 +1,6 @@
-﻿using Sanchime.Common.Models.Query;
-using Sanchime.Common.Models;
+﻿using Sanchime.Common.Models;
 using Microsoft.EntityFrameworkCore;
-using Sanchime.Common;
+using Sanchime.DynamicQueryable;
 
 namespace Sanchime.EntityFrameworkCore;
 

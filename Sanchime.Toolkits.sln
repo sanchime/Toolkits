@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.AspNetCore", "Sanc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F51FC448-CD1A-4EE7-9B5A-5D3060E9DA1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.Identity.WebApi", "Sanchime.Identity.WebApi\Sanchime.Identity.WebApi.csproj", "{969B4DE8-F167-4894-94DF-C3E4D63B07D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.Identity.WebApi", "Sanchime.Identity.WebApi\Sanchime.Identity.WebApi.csproj", "{969B4DE8-F167-4894-94DF-C3E4D63B07D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.Identity", "Sanchime.Identity\Sanchime.Identity.csproj", "{6FCBCC0C-F83E-4778-9C57-60C12363D890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchime.Identity", "Sanchime.Identity\Sanchime.Identity.csproj", "{6FCBCC0C-F83E-4778-9C57-60C12363D890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchime.DynamicQueryable", "Sanchime.DynamicQueryable\Sanchime.DynamicQueryable.csproj", "{E809F110-4065-4E73-AECB-195DD0B81D4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FCBCC0C-F83E-4778-9C57-60C12363D890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E809F110-4065-4E73-AECB-195DD0B81D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E809F110-4065-4E73-AECB-195DD0B81D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E809F110-4065-4E73-AECB-195DD0B81D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E809F110-4065-4E73-AECB-195DD0B81D4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

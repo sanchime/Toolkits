@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using Sanchime.DynamicQueryable;
+using System.Linq.Expressions;
 
-namespace Sanchime.Common.Models.Query.Builders;
+namespace Sanchime.DynamicQueryable.Builders;
 
 public sealed class DynamicQueryBuilder<TEntity>
 {
@@ -17,7 +18,7 @@ public sealed class DynamicQueryBuilder<TEntity>
 
         _query = new DynamicQuery() { Filters = [_group] };
     }
-    
+
     private DynamicQueryBuilder(TEntity entity, DynamicQuery query, DynamicFilterGroup group)
     {
         _query = query;
