@@ -37,6 +37,7 @@ public static class WebApplicationExtensions
                 api.AddEndpointFilter(filter);
             }
         }
+
         return api;
     }
 }

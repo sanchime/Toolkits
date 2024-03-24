@@ -20,9 +20,9 @@ public static class IdentityGroup
         api.MapPost<RegisterAccountCommand>("register");
         api.MapPost<LoginCommand, LoginResponse>("token", x => x.AllowAnonymous());
         api.MapPost<RefreshTokenCommand, LoginResponse>("token/refresh");
-        api.MapPatch<AccountByIdRequest, ResetPasswordCommand>("{AccountId}/password/reset", (p) => new ResetPasswordCommand(p.AccountId));
+        api.MapPatch<RequestById, ResetPasswordCommand>("{Id}/password/reset", (p) => new ResetPasswordCommand(p.Id));
         api.MapPost<BatchResetPasswordCommand>("password/reset/batch");
-        api.MapPatch<AccountByIdRequest, AccountChangePasswordRequest, ChangePasswordCommand>("{AccountId}/password/change", (p, b) => new ChangePasswordCommand(p.AccountId, b.Password, b.NewPassword));
+        api.MapPatch<RequestById, AccountChangePasswordRequest, ChangePasswordCommand>("{Id}/password/change", (p, b) => new ChangePasswordCommand(p.Id, b.Password, b.NewPassword));
 
         return endpoint;
     }
@@ -30,14 +30,14 @@ public static class IdentityGroup
     private static IEndpointRouteBuilder AddUserApi(this IEndpointRouteBuilder endpoint)
     {
         var api = endpoint.MapGroup("user").WithTags("用户管理")
-            .MapGet<GetUserByIdQuery, UserResponse>("{UserId}")
+            .MapGet<GetUserByIdQuery, UserResponse>("{Id}")
             .MapGet<GetUserListQuery, PaginatedResult<UserResponse>>()
             .MapPost<AddUserCommand>()
-            .MapPut<UserByIdRequest, UserUpdateRequest, UpdateUserCommand>("{UserId}", (p, b) => new UpdateUserCommand(p.UserId, b.UserName, b.IsEnabled))
-            .MapDelete<DeleteUserCommand>("{UserId}");
+            .MapPut<RequestById, UserUpdateRequest, UpdateUserCommand>("{Id}", (p, b) => new UpdateUserCommand(p.Id, b.UserName, b.IsEnabled))
+            .MapDelete<DeleteUserCommand>("{Id}");
 
-        api.MapGroup("{UserId}/roles")
-            .MapPost<UserRoleByUserIdRequest, long[], AddUserRolesCommand>("", (p, b) => new(p.UserId, b))
+        api.MapGroup("{Id}/roles")
+            .MapPost<RequestById, long[], AddUserRolesCommand>("", (p, b) => new(p.Id, b))
             .MapGet<GetUserRolesQuery, UserRolesResponse>()
             .MapDelete<DeleteUserRolesCommand>();
 
@@ -47,10 +47,10 @@ public static class IdentityGroup
     {
         var api = endpoint.MapGroup("role").WithTags("角色管理")
             .MapGet<GetRoleListQuery, List<RoleResponse>>()
-            .MapPut<RoleByIdRequest, RoleRequest, UpdateRoleCommand>("{RoleId}", (p, b) => new (p.RoleId, b.Code, b.Name, b.Description, b.IsEnabled))
+            .MapPut<RequestById, RoleRequest, UpdateRoleCommand>("{Id}", (p, b) => new (p.Id, b.Code, b.Name, b.Description, b.IsEnabled))
             .MapPost<AddRoleCommand>()
-            .MapDelete<DeleteRoleCommand>("{RoleId}")
-            .MapPost<RoleByIdRequest, long[], UpdateRolePermissionCommand>("{RoleId}/permissions", (p, b) => new (p.RoleId, b));
+            .MapDelete<DeleteRoleCommand>("{Id}")
+            .MapPost<RequestById, long[], UpdateRolePermissionCommand>("{Id}/permissions", (p, b) => new (p.Id, b));
         return endpoint;
     }
 
@@ -59,7 +59,8 @@ public static class IdentityGroup
         var api = endpoint.MapGroup("permission").WithTags("权限管理");
         api.MapGet<GetPermissionListQuery, PaginatedResult<PermissionResponse>>();
         api.MapPost<AddPermissionCommand>();
-        api.MapPut<PermissionByIdRequest, PermissionRequest, UpdatePermissionCommand>("{PermissionId}", (p, b) => new (p.PermissionId, b.Code, b.Name, b.Description, b.IsEnabled));
+        api.MapPut<RequestById, PermissionRequest, UpdatePermissionCommand>("{Id}", (p, b) => new (p.Id, b.Code, b.Name, b.Description, b.IsEnabled));
+        api.MapDelete<DeletePermissionCommand>();
         return endpoint;
     }
 }

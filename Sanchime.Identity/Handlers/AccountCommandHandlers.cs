@@ -95,7 +95,7 @@ public class AccountCommandHandler(IdentityContext context, IOptions<IdentityCon
     public async Task Handle(ChangePasswordCommand command, CancellationToken cancellation = default)
     {
         var account = await context.Accounts
-            .FirstOrDefaultAsync(x => x.Id == command.AccountId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new NullReferenceException("账号不存在");
 
         if (!PasswordHelper.VerifyHashedPassword(command.Password, account.PasswordHash))
@@ -118,7 +118,7 @@ public class AccountCommandHandler(IdentityContext context, IOptions<IdentityCon
     public async Task Handle(ResetPasswordCommand command, CancellationToken cancellation = default)
     {
         var account = await context.Accounts
-            .FirstOrDefaultAsync(x => x.Id == command.AccountId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new NullReferenceException("账号不存在");
 
         account.PasswordHash = PasswordHelper.HashPassword(config.Value.DefaultPassword);

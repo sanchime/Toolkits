@@ -7,7 +7,7 @@ public class UserCommandHandler(IdentityContext context, IMapper mapper) :
     public async Task Handle(DeleteUserRolesCommand command, CancellationToken cancellation = default)
     {
         var user = await context.Users
-            .FirstOrDefaultAsync(x => x.Id == command.UserId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new Exception("该用户不存在");
         user.Roles.Clear();
         await context.SaveChangesAsync(cancellation);
@@ -16,7 +16,7 @@ public class UserCommandHandler(IdentityContext context, IMapper mapper) :
     public async Task Handle(AddUserRolesCommand command, CancellationToken cancellation = default)
     {
         var user = await context.Users
-            .FirstOrDefaultAsync(x => x.Id == command.UserId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new Exception("该用户不存在");
 
         var roles = await context.Roles.Where(x => command.Roles.Contains(x.Id)).ToListAsync(cancellationToken: cancellation);

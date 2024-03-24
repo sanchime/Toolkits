@@ -10,7 +10,7 @@ public class UserQueryHandler(IdentityContext context) :
     public async Task<UserResponse> Handle(GetUserByIdQuery query, CancellationToken cancellation = default)
     {
         return await context.Users
-            .Where(x => x.Id == query.UserId)
+            .Where(x => x.Id == query.Id)
             .ProjectToType<UserResponse>()
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken: cancellation)
@@ -21,7 +21,7 @@ public class UserQueryHandler(IdentityContext context) :
     {
         return await context.Users
             .Include(x => x.Roles)
-            .Where(x => x.Id == query.UserId)
+            .Where(x => x.Id == query.Id)
             .ProjectToType<UserRolesResponse>()
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken: cancellation)

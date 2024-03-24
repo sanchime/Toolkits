@@ -6,4 +6,4 @@ public record UpdateRoleCommand(long Id, string Code, string Name, string? Descr
 
 public record DeleteRoleCommand(long Id) : ICommand;
 
-public record UpdateRolePermissionCommand(long RoleId, long[] Permissions) : ICommand;
+public record UpdateRolePermissionCommand(long Id, long[] Permissions) : ICommand;

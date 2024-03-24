@@ -12,7 +12,7 @@ internal class ExceptionHandler : IExceptionHandler
 
         httpContext.Response.ContentType = MediaTypeNames.Application.Json;
 
-        await httpContext.Response.WriteAsJsonAsync(new
+        await httpContext.Response.WriteAsJsonAsync(new ErrorResult
         {
             Code = httpContext.Response.StatusCode,
             Message = exception.Message

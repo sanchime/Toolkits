@@ -46,7 +46,7 @@ public class RoleCommandHandler(IdentityContext context) :
     {
         var role = await context.Roles
             .Include(x => x.Permissions)
-            .FirstOrDefaultAsync(x => x.Id == command.RoleId, cancellationToken: cancellation)
+            .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellation)
             ?? throw new Exception("该角色不存在");
 
         var permissions = await context.Permissions

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sanchime.Common.Snowflakes;
 using Sanchime.DependencyInjection;
 using System.IO.Compression;
@@ -34,7 +35,7 @@ public static class WebApplicationBuilderExtensions
         {
             options.Level = CompressionLevel.SmallestSize;
         });
-        builder.Services.AddSingleton<ISnowflake>(_ => new Snowflake(new SnowflakeOptions()));
+        builder.Services.TryAddSingleton<ISnowflake>(_ => new Snowflake(new SnowflakeOptions()));
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
