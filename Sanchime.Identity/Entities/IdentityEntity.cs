@@ -1,4 +1,4 @@
-﻿using Sanchime.Common.Models;
+﻿using Sanchime.EntityFrameworkCore;
 using Sanchime.EventFlows.Entities;
 
 namespace Sanchime.Identity.Entities;

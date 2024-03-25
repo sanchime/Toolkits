@@ -9,6 +9,7 @@ public static class IdentityGroup
             .AddAccountApi()
             .AddRoleApi()
             .AddPermissionApi()
+            .AddMenuApi()
             ;
 
         return endpoint;
@@ -61,6 +62,18 @@ public static class IdentityGroup
         api.MapPost<AddPermissionCommand>();
         api.MapPut<RequestById, PermissionRequest, UpdatePermissionCommand>("{Id}", (p, b) => new (p.Id, b.Code, b.Name, b.Description, b.IsEnabled));
         api.MapDelete<DeletePermissionCommand>();
+
+        api.MapGet<GetPermissionTreeQuery, List<PermissionTreeResponse>>("tree");
+
+        return endpoint;
+    }
+
+    private static IEndpointRouteBuilder AddMenuApi(this IEndpointRouteBuilder endpoint)
+    {
+        var api = endpoint.MapGroup("menu").WithTags("菜单管理");
+        api.MapPost<AddMenuCommand>();
+        api.MapGet<GetMenuTreeQuery, List<MenuTreeResponse>>("tree");
+
         return endpoint;
     }
 }

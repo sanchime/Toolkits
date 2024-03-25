@@ -44,4 +44,6 @@ public static class SystemExtensions
     public static bool IsNullOrEmpty(this string input) => String.IsNullOrEmpty(input);
 
     public static bool IsNullOrWhiteSpace(this string input) => String.IsNullOrWhiteSpace(input);
+
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T> list) => list?.Any() is not true;
 }

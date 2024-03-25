@@ -17,4 +17,6 @@ public class Role : IdentityEntity
     public ICollection<Role> Children { get; } = [];
 
     public IList<Permission> Permissions { get; set; } = [];
+
+    public IList<Menu> Menus { get; set; } = [];
 }

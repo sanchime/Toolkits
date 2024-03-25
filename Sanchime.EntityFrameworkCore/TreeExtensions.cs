@@ -1,18 +1,15 @@
-﻿using Sanchime.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Sanchime.Common.Models;
 
-namespace Sanchime.Common;
+namespace Sanchime.EntityFrameworkCore;
 
 public static class TreeExtensions
 {
-    public static List<T> ToTree<T, TKey>(this IEnumerable<T> list, TKey rootValue, Func<T, TKey> keySelector, Func<T, TKey?> parentSelector)
+    public static async ValueTask<List<T>> ToTreeAsync<T, TKey>(this IQueryable<T> query, TKey rootValue, Func<T, TKey> keySelector, Func<T, TKey?> parentSelector, CancellationToken cancellation = default)
         where T : ITree<T>
     {
-        if (!list.Any())
+        var list = await query.ToArrayAsync(cancellation);
+        if (list.Length == 0)
         {
             return [];
         }
@@ -36,6 +33,4 @@ public static class TreeExtensions
             }
         }
     }
-
-    
 }

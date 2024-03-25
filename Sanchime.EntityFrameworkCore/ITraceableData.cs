@@ -1,4 +1,4 @@
-﻿namespace Sanchime.Common.Models;
+﻿namespace Sanchime.EntityFrameworkCore;
 
 public interface ITraceableEntity
 {

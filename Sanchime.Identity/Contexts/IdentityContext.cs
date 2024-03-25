@@ -17,6 +17,8 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
 
     public DbSet<Permission> Permissions { get; set; }
 
+    public DbSet<Menu> Menus { get; set; }
+
     protected override ValueTask VisitEntry(EntityEntry entry)
     {
         if (entry.Entity is Account account && entry.State is EntityState.Added)
@@ -73,6 +75,9 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
             entity.HasMany(x => x.Permissions)
                 .WithMany(x => x.Roles);
 
+            entity.HasMany(x => x.Menus)
+                .WithMany(x => x.Roles);
+
             entity.HasOne(e => e.Parent)
                 .WithMany(e => e.Children)
                 .HasForeignKey(e => e.ParentId)
@@ -85,6 +90,14 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
                 .HasForeignKey(e => e.ParentId)
                 .IsRequired(false);
         });
+
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.HasOne(e => e.Parent)
+                .WithMany(e => e.Children)
+                .HasForeignKey(e => e.ParentId)
+                .IsRequired(false);
+        }); 
     }
 
 }
