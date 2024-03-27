@@ -12,7 +12,7 @@ public static class EndpointExtensions
 {
     public static IEndpointRouteBuilder MapGet<TRequest, TResponse>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : IQuery<TResponse>
     {
-        var api = endpoint.MapGet(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Request<TRequest, TResponse>(request));
+        var api = endpoint.MapGet(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Request<TRequest, TResponse>(request, cancellation));
         api.Produces<TResponse>(StatusCodes.Status200OK)
             .Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -28,7 +28,7 @@ public static class EndpointExtensions
        where TRequest : ICommand
     {
         ArgumentNullException.ThrowIfNull(nameof(injector));
-        var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromServices] IEventFlowMediator mediator) => mediator.Execute(injector(parameter)));
+        var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -41,7 +41,7 @@ public static class EndpointExtensions
        where TRequest : ICommand
     {
         ArgumentNullException.ThrowIfNull(nameof(injector));
-        var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator) => mediator.Execute(injector(parameter, body)));
+        var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -49,7 +49,7 @@ public static class EndpointExtensions
 
     public static IEndpointRouteBuilder MapPatch<TRequest>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand
     {
-        var api = endpoint.MapPatch(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute(request));
+        var api = endpoint.MapPatch(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(request, cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -57,7 +57,7 @@ public static class EndpointExtensions
 
     public static IEndpointRouteBuilder MapPatch<TRequest, TResponse>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand<TResponse>
     {
-        var api = endpoint.MapPatch(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute<TRequest, TResponse>(request));
+        var api = endpoint.MapPatch(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute<TRequest, TResponse>(request, cancellation));
         api.Produces<TResponse>(StatusCodes.Status200OK)
              .Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -74,7 +74,7 @@ public static class EndpointExtensions
         where TRequest : ICommand
     {
         ArgumentNullException.ThrowIfNull(nameof(injector));
-        var api = endpoint.MapPut(pattern, ([AsParameters] TParameter parameter, [FromBody]TBody body, [FromServices] IEventFlowMediator mediator) => mediator.Execute(injector(parameter, body)));
+        var api = endpoint.MapPut(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -82,7 +82,7 @@ public static class EndpointExtensions
 
     public static IEndpointRouteBuilder MapPut<TRequest>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand
     {
-        var api = endpoint.MapPut(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute(request));
+        var api = endpoint.MapPut(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(request, cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -90,7 +90,7 @@ public static class EndpointExtensions
 
     public static IEndpointRouteBuilder MapPut<TRequest, TResponse>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand<TResponse>
     {
-        var api = endpoint.MapPut(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute<TRequest, TResponse>(request));
+        var api = endpoint.MapPut(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute<TRequest, TResponse>(request, cancellation));
         api.Produces<TResponse>(StatusCodes.Status200OK)
             .Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -108,7 +108,7 @@ public static class EndpointExtensions
         where TRequest : ICommand
     {
         ArgumentNullException.ThrowIfNull(nameof(injector));
-        var api = endpoint.MapPost(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator) => mediator.Execute(injector(parameter, body)));
+        var api = endpoint.MapPost(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation    ));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -116,7 +116,7 @@ public static class EndpointExtensions
 
     public static IEndpointRouteBuilder MapPost<TRequest>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand
     {
-        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute(request));
+        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(request, cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -125,7 +125,7 @@ public static class EndpointExtensions
     public static IEndpointRouteBuilder MapPost<TRequest, TResponse>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null)
         where TRequest : ICommand<TResponse>
     {
-        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute<TRequest, TResponse>(request));
+        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute<TRequest, TResponse>(request, cancellation));
         api.Produces<TResponse>(StatusCodes.Status200OK)
             .Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -139,7 +139,7 @@ public static class EndpointExtensions
     public static IEndpointRouteBuilder MapDelete<TRequest>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null)
         where TRequest : ICommand
     {
-        var api = endpoint.MapDelete(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute(request));
+        var api = endpoint.MapDelete(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(request, cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;
@@ -148,7 +148,7 @@ public static class EndpointExtensions
     public static IEndpointRouteBuilder MapDelete<TRequest, TResponse>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null)
         where TRequest : ICommand<TResponse>
     {
-        var api = endpoint.MapDelete(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator) => mediator.Execute<TRequest, TResponse>(request));
+        var api = endpoint.MapDelete(pattern, ([AsParameters] TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute<TRequest, TResponse>(request, cancellation));
         api.Produces<TResponse>(StatusCodes.Status200OK)
             .Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);

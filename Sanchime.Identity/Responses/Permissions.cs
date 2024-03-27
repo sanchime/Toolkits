@@ -18,5 +18,5 @@ public class PermissionTreeResponse : ITree<PermissionTreeResponse>
 
     [NotMapped]
     [AdaptIgnore]
-    public List<PermissionTreeResponse> Children { get; set; } = [];
+    public IList<PermissionTreeResponse> Children { get; set; } = [];
 }

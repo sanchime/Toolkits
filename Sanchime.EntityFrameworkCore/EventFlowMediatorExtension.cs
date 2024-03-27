@@ -14,10 +14,10 @@ public static class EventFlowMediatorExtension
         var domainEvents = domainEntities
             .SelectMany(x => x.Entity.DomainEvents);
 
-        domainEntities.ToList()
-            .ForEach(entity => entity.Entity.ClearDomainEvents());
-
         foreach (var domainEvent in domainEvents)
             await mediator.Publish(domainEvent);
+
+        domainEntities.ToList()
+           .ForEach(entity => entity.Entity.ClearDomainEvents());
     }
 }

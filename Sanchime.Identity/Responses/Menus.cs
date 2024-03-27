@@ -27,5 +27,5 @@ public class MenuTreeResponse : ITree<MenuTreeResponse>
 
     [NotMapped]
     [AdaptIgnore]
-    public List<MenuTreeResponse> Children { get; set; } = [];
+    public IList<MenuTreeResponse> Children { get; set; } = [];
 }

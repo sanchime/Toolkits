@@ -2,5 +2,5 @@
 
 public interface ITree<TChild>
 {
-    public List<TChild> Children { get; set; }
+    public IList<TChild> Children { get; set; }
 }
