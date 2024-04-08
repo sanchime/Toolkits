@@ -11,11 +11,10 @@ public static class JwtHelper
     {
         var userClaims = new List<Claim>
         {
-            new Claim(nameof(ICurrentUserContext.Account), account.LoginName),
-            new Claim(nameof(ICurrentUserContext.UserId), account.User.Id.ToString()),
-            new Claim(nameof(ICurrentUserContext.UserName), account.User.Name),
+            new("account", account.LoginName),
+            new("userId", account.User.Id.ToString()),
+            new("userName", account.User.Name),
         };
-
 
         return [.. userClaims];
     }

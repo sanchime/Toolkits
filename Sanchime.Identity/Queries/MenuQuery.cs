@@ -1,3 +1,3 @@
 ﻿namespace Sanchime.Identity.Queries;
 
-public record GetMenuTreeQuery() : IQuery<List<MenuTreeResponse>>;
+public record GetMenuTreeQuery(MenuType Type) : IQuery<List<MenuTreeResponse>>;

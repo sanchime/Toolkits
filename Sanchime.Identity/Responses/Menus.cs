@@ -1,5 +1,4 @@
-﻿using Sanchime.Identity.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sanchime.Identity.Responses;
 
@@ -23,6 +22,7 @@ public class MenuTreeResponse : ITree<MenuTreeResponse>
 
     public string? Description { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public long? ParentId { get; set; }
 
     [NotMapped]

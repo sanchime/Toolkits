@@ -8,7 +8,10 @@ internal sealed class EventFlowPipelineDispatcher(IServiceProvider provider) : I
 
     private readonly ConcurrentDictionary<Type, Delegate> _pipelines = new();
 
-    public async Task<TResult> Handle<TRequest, TResult>(TRequest request, Func<TRequest, CancellationToken, Task<TResult>> handle, CancellationToken cancellation = default) where TRequest : notnull
+    public async Task<TResult> Handle<TRequest, TResult>(TRequest request,
+        Func<TRequest, CancellationToken, Task<TResult>> handle,
+        CancellationToken cancellation = default)
+        where TRequest : notnull
     {
 
         Func<TRequest, CancellationToken, Task<TResult>> chain = (Func<TRequest, CancellationToken, Task<TResult>>)_pipelines.GetOrAdd(typeof(TRequest), type =>

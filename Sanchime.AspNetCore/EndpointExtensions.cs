@@ -114,9 +114,13 @@ public static class EndpointExtensions
         return endpoint;
     }
 
-    public static IEndpointRouteBuilder MapPost<TRequest>(this IEndpointRouteBuilder endpoint, [StringSyntax("Route")] string pattern = "", Action<IEndpointConventionBuilder>? config = null) where TRequest : ICommand
+    public static IEndpointRouteBuilder MapPost<TRequest>(this IEndpointRouteBuilder endpoint,
+        [StringSyntax("Route")] string pattern = "", 
+        Action<IEndpointConventionBuilder>? config = null)
+        where TRequest : ICommand
     {
-        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(request, cancellation));
+        var api = endpoint.MapPost(pattern, (TRequest request, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) 
+            => mediator.Execute(request, cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
         return endpoint;

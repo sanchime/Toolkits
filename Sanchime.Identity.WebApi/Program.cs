@@ -1,13 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Sanchime.Identity;
-using Sanchime.ProjectManager.WebApi.ApiGroups;
-using System.Text;
-using Sanchime.Identity.WebApi;
-using Sanchime.EntityFrameworkCore;
-using FluentValidation;
-using MapsterMapper;
-using Microsoft.AspNetCore.HttpLogging;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
@@ -30,6 +20,20 @@ builder.Services.Configure<IdentityConfiguration>(builder.Configuration.GetSecti
 builder.Services.AddOptions<IdentityConfiguration>();
 
 builder.Services.AddSingleton<IMapper, Mapper>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            //.WithOrigins("http://localhost:5173/", "http://127.0.0.1:5173/")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed((host) => true)
+            ;
+    });
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -64,7 +68,12 @@ builder.Services.AddHttpLogging(options =>
         | HttpLoggingFields.Duration;
     options.CombineLogs = true;
 });
+
+
 var app = builder.Build();
+
+//app.UseRouting();
+app.UseCors();
 
 app.UseAntiforgery();
 
@@ -82,5 +91,6 @@ app.UseMiniApi()
     .AllowAnonymous()
 #endif
     .AddIdentityGroup();
+
 
 app.Run();

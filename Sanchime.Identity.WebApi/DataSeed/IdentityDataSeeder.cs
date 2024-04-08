@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Sanchime.DependencyInjection;
-using Sanchime.EntityFrameworkCore;
-
-namespace Sanchime.Identity.WebApi;
+﻿namespace Sanchime.Identity.WebApi;
 
 [ScopedInjection]
 internal class IdentityDataSeeder(IEventFlowMediator mediator, IdentityContext context, ILogger<IdentityDataSeeder> logger, IOptions<IdentityConfiguration> config) : IDataSeeder

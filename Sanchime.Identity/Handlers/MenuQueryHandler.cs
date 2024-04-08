@@ -7,6 +7,7 @@ public class MenuQueryHandler(IdentityContext context) :
     {
         return await context.Menus
             .ProjectToType<MenuTreeResponse>()
+            .Where(x => x.Type == query.Type)
             .OrderBy(x => x.Order)
             .AsNoTracking()
             .ToTreeAsync(null, x => x.Id, x => x.ParentId, cancellation);
