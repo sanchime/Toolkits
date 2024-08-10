@@ -4,6 +4,9 @@ namespace Sanchime.Identity.Commands;
 
 public class AddMenuCommand : ICommand
 {
+
+    public long? ParentId { get; set; }
+
     public required string Code { get; set; }
 
     public required string Name { get; set; }
@@ -19,5 +22,4 @@ public class AddMenuCommand : ICommand
     public string? Path { get; set; }
 
     public string? Description { get; set; }
-
 }

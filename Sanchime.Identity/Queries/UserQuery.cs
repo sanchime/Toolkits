@@ -6,3 +6,5 @@ public record GetUserByIdQuery(long Id) : IQuery<UserResponse>;
 
 
 public record GetUserRolesQuery(long Id) : IQuery<UserRolesResponse>;
+
+public record GetUserMenusQuery(long Id) : IQuery<List<MenuTreeResponse>>;

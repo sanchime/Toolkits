@@ -42,6 +42,9 @@ public static class IdentityGroup
             .MapGet<GetUserRolesQuery, UserRolesResponse>()
             .MapDelete<DeleteUserRolesCommand>();
 
+        api.MapGroup("{Id}/menus")
+            .MapGet<GetUserMenusQuery, List<MenuTreeResponse>>();
+
         return endpoint;
     }
     private static IEndpointRouteBuilder AddRoleApi(this IEndpointRouteBuilder endpoint)
@@ -52,6 +55,10 @@ public static class IdentityGroup
             .MapPost<AddRoleCommand>()
             .MapDelete<DeleteRoleCommand>("{Id}")
             .MapPost<RequestById, long[], UpdateRolePermissionCommand>("{Id}/permissions", (p, b) => new (p.Id, b));
+
+        api.MapGroup("{Id}/menus")
+            .MapGet<GetRoleMenusQuery, List<MenuTreeResponse>>();
+        
         return endpoint;
     }
 
