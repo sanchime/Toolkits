@@ -27,8 +27,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { RouteRecordRaw, useRoute } from "vue-router";
-import SidebarItem from "./SidebarItem.vue";
-import Logo from "./Logo.vue";
 
 import variables from "@/styles/variables.module.scss";
 import { getRouters } from "@/routers/menu";

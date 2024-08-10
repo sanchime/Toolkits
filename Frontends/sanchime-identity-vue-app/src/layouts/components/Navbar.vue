@@ -13,29 +13,27 @@
       <div class="setting-container">
         <!--全屏 -->
         <div class="setting-item" @click="toggle">
-          <!-- <svg-icon
+          <svg-icon
             :icon-class="false ? 'exit-fullscreen' : 'fullscreen'"
-          /> -->
+          />
         </div>
         <!-- 布局大小 -->
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <!-- <size-select class="setting-item" /> -->
         </el-tooltip>
-        <!--语言选择-->
-        <!-- <lang-select class="setting-item" /> -->
       </div>
 
       <!-- 用户头像 -->
       <el-dropdown trigger="click">
         <div class="avatar-container">
-          <img :src="'?imageView2/1/w/80/h/80'" />
+          <img :src="'@/assets/logo.png'" />
           <span class="h-3">{{ user.userName }}</span>
           <i-ep-caret-bottom class="w-3 h-3"></i-ep-caret-bottom>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
             <router-link to="/">
-              <el-dropdown-item>{{ "navbar.dashboard" }}</el-dropdown-item>
+              <el-dropdown-item>个人中心</el-dropdown-item>
             </router-link>
             <el-dropdown-item divided @click="logout"> 登出 </el-dropdown-item>
           </el-dropdown-menu>

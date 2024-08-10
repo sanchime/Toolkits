@@ -1,5 +1,3 @@
-
-
 <template>
   <section class="app-main">
     <router-view v-slot="{ Component, route }">

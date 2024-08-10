@@ -13,4 +13,5 @@ export interface TokenPayload {
     account: string
     userId: number
     userName: string
+    userAvatar: string | null
 }

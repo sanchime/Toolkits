@@ -14,6 +14,7 @@ public static class JwtHelper
             new("account", account.LoginName),
             new("userId", account.User.Id.ToString()),
             new("userName", account.User.Name),
+            new("userAvatar", account.User.Avatar!),
         };
 
         return [.. userClaims];

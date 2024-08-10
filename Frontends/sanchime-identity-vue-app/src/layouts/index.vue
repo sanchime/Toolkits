@@ -12,7 +12,7 @@
     <div :class="{ hasTagsView: showTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
-        <!-- <tags-view /> -->
+        <tags-view v-if="showTagsView"/>
       </div>
 
       <!--主页面-->
@@ -29,9 +29,7 @@
 <script setup lang="ts">
 import { computed, watchEffect } from "vue";
 import { useWindowSize } from "@vueuse/core";
-import { Navbar, AppMain, Settings } from "./components/index";
-import Sidebar from "./components/sidebar/index.vue";
-import RightPanel from "@/components/RightPanel/index.vue";
+import { Navbar, AppMain, Settings, TagsView } from "./components/index";
 import { useSettingsStore } from "@/store/settings";
 import { useAppStore } from "@/store/app";
 const { width } = useWindowSize();

@@ -116,7 +116,9 @@ function resolvePath(routePath: string): any {
     return props.basePath;
   }
   // 完整路径 = 父级路径(/level/level_3) + 路由路径
-  //const fullPath = path.resolve(props.basePath, routePath); // 相对路径 → 绝对路径
+   //const fullPath = path.resolve(props.basePath, routePath); // 相对路径 → 绝对路径
+
+  console.debug('routePath', routePath)
   return routePath;
 }
 </script>

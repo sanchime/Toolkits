@@ -1,6 +1,7 @@
 ﻿using Sanchime.DynamicQueryable;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.Json;
 
 namespace Sanchime.DynamicQueryable;
 
@@ -77,17 +78,10 @@ public static class DynamicExpressionExtensions
     private static Expression GetExpression(this ParameterExpression param, DynamicFilter filter)
     {
         var member = Expression.Property(param, filter.PropertyName);
-        Expression ConstantExpressionChoose(Type baseType, Type? nullableType) => (baseType, nullableType) switch
-        {
-            ({ IsEnum: true }, null) => Expression.Convert(Expression.Call(EnumParseMethod, Expression.Constant(baseType), Expression.Constant(filter.Value)), baseType),
-            (_, { IsEnum: true }) => Expression.Convert(Expression.Call(EnumParseMethod!, Expression.Constant(nullableType), Expression.Constant(filter.Value)), baseType),
-            (_, _) when baseType == typeof(string) => Expression.Constant(string.IsNullOrEmpty(filter.Value?.ToString()) ? null : filter.Value),
-            (_, not null) _ => Expression.Convert(Expression.Call(nullableType.GetMethod("Parse", [typeof(string)])!, Expression.Constant(filter.Value)), baseType),
-            (_, null) => Expression.Call(baseType.GetMethod("Parse", [typeof(string)])!, Expression.Constant(filter.Value))
-        };
+        Expression CreateConstantExpression(Type targetType, Type? nullableType) => CreateConstantForType(targetType, nullableType ?? targetType, filter.Value);
 
+        var constant = CreateConstantExpression(member.Type, Nullable.GetUnderlyingType(member.Type));
 
-        var constant = ConstantExpressionChoose(member.Type, Nullable.GetUnderlyingType(member.Type));
         Expression DynamicOperationChoose(DynamicOperationMode operation) => operation switch
         {
             DynamicOperationMode.Equal => Expression.Equal(member, constant),
@@ -101,5 +95,26 @@ public static class DynamicExpressionExtensions
         };
 
         return DynamicOperationChoose(filter.Operation);
+    }
+
+    private static Expression CreateConstantForType(Type baseType, Type targetType, object? filterValue)
+    {
+        object? value = filterValue;
+        if (filterValue is JsonElement jsonValue)
+        {
+            value = jsonValue.Deserialize(targetType);
+        }
+        if (baseType.IsEnum)
+        {
+            return Expression.Convert(Expression.Call(EnumParseMethod, Expression.Constant(targetType), Expression.Constant(value)), baseType);
+        }
+
+        if (targetType == typeof(string))
+        {
+            string stringValue = (string)value!;
+            return Expression.Constant(string.IsNullOrEmpty(stringValue) ? null : stringValue.Trim());
+        }
+
+        return Expression.Constant(value);
     }
 }

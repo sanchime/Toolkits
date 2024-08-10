@@ -36,9 +36,9 @@ declare module 'vue' {
     RightPanel: typeof import('./src/components/RightPanel/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Settings: typeof import('./src/layouts/components/settings/index.vue')['default']
-    Sidebar: typeof import('./src/layouts/components/sidebar/index.vue')['default']
-    SidebarItem: typeof import('./src/layouts/components/sidebar/SidebarItem.vue')['default']
+    Settings: typeof import('./src/layouts/components/Settings/index.vue')['default']
+    Sidebar: typeof import('./src/layouts/components/Sidebar/index.vue')['default']
+    SidebarItem: typeof import('./src/layouts/components/Sidebar/SidebarItem.vue')['default']
     Sidebars: typeof import('./src/components/sidebars/index.vue')['default']
   }
 }

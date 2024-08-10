@@ -37,7 +37,7 @@ defineProps({
   }
 });
 
-const logo = ref(new URL(`../../../assets/logo.png`, import.meta.url).href);
+const logo = ref(new URL(`@/assets/logo.png`, import.meta.url).href);
 </script>
 
 
