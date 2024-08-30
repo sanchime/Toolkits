@@ -38,7 +38,7 @@ const getBreadcrumb = () => {
   );
   const first = matched[0];
   if (!isDashboard(first)) {
-    matched = [{ path: "/dashboard", meta: { title: "首页" } } as any].concat(
+    matched = [{ path: "/home", meta: { title: "首页" } } as any].concat(
       matched
     );
   }

@@ -40,5 +40,6 @@ declare module 'vue' {
     Sidebar: typeof import('./src/layouts/components/Sidebar/index.vue')['default']
     SidebarItem: typeof import('./src/layouts/components/Sidebar/SidebarItem.vue')['default']
     Sidebars: typeof import('./src/components/sidebars/index.vue')['default']
+    DynamicTable: typeof import('./src/components/DynamicTable/index.vue')['default']
   }
 }

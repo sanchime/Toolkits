@@ -1,5 +1,3 @@
-import { MenuType } from '@/enums/menu'
-
 export interface MenuTreeResponse {
     id: number
     code: string
@@ -7,9 +5,7 @@ export interface MenuTreeResponse {
     icon: string
     path: string
     route: string
+    order: number
+    parentId: number,
     children: MenuTreeResponse[]
-}
-
-export interface GetMenuTreeQuery {
-    type: MenuType
 }

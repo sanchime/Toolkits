@@ -14,7 +14,7 @@
       >
         <sidebar-item
           v-for="route in routes"
-          :key="route.meta.id"
+          :key="route.meta?.id"
           :item="route"
           :base-path="route.path"
           :is-collapse="!appStore.sidebar.opened"

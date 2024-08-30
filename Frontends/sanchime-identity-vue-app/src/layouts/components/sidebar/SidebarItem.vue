@@ -85,7 +85,6 @@ function hasOneShowingChild(children = [], parent: any) {
       return true;
     }
   });
-
   // 1：如果只有一个子路由, 返回 true   返回false 使其能显示
   if (showingChildren.length === 1) {
     //如果只有一个路由 且不是首页的情况下 需要让其子路由显示
@@ -97,7 +96,7 @@ function hasOneShowingChild(children = [], parent: any) {
 
   // 2：如果无子路由, 复制当前路由信息作为其子路由，满足只拥有一个子路由的条件，所以返回 true
   if (showingChildren.length === 0) {
-    onlyOneChild.value = { ...parent, path: "", noShowingChildren: true };
+    onlyOneChild.value = { ...parent, noShowingChildren: true };
     return true;
   }
   return false;
@@ -118,7 +117,8 @@ function resolvePath(routePath: string): any {
   // 完整路径 = 父级路径(/level/level_3) + 路由路径
    //const fullPath = path.resolve(props.basePath, routePath); // 相对路径 → 绝对路径
 
-  console.debug('routePath', routePath)
+  
   return routePath;
 }
+
 </script>

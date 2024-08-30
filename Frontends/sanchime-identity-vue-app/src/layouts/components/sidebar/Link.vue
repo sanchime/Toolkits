@@ -30,8 +30,9 @@ function push() {
   if (device.value === 'mobile' && sidebar.value.opened == true) {
     appStore.closeSideBar(false);
   }
+  console.log("link route", props.to)
   router.push(props.to).catch(err => {
-    console.error(err);
+    console.error("link error", err);
   });
 }
 </script>

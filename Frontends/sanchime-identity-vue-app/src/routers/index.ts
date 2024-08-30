@@ -29,6 +29,27 @@ export const routes: RouteRecordRaw[] = [
       meta: { title: "home", hidden: false, icon: "homepage", affix: true },
     }]
   },
+  {
+    path: '/system',
+    component: Layout,
+    meta: { hidden: false },
+    children: [{
+      path: '/user',
+      component: () => import('../views/systems/user/index.vue'),
+      meta: { title: "用户管理", hidden: false, icon: "homepage", affix: true },
+    },
+    {
+      path: '/role',
+      component: () => import('../views/systems/role/index.vue'),
+      meta: { title: "角色管理", hidden: false, icon: "homepage", affix: true },
+    },
+    {
+      path: '/menu',
+      component: () => import('../views/systems/menu/index.vue'),
+      meta: { title: "菜单管理", hidden: false, icon: "homepage", affix: true },
+    }
+    ]
+  },
 ]
 
 const router = createRouter({
