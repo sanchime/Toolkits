@@ -27,7 +27,7 @@ public static class EndpointExtensions
        Action<IEndpointConventionBuilder>? config = null)
        where TRequest : ICommand
     {
-        ArgumentNullException.ThrowIfNull(nameof(injector));
+        ArgumentNullException.ThrowIfNull(injector);
         var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -40,7 +40,7 @@ public static class EndpointExtensions
        Action<IEndpointConventionBuilder>? config = null)
        where TRequest : ICommand
     {
-        ArgumentNullException.ThrowIfNull(nameof(injector));
+        ArgumentNullException.ThrowIfNull(injector);
         var api = endpoint.MapPatch(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -73,7 +73,7 @@ public static class EndpointExtensions
         Action<IEndpointConventionBuilder>? config = null) 
         where TRequest : ICommand
     {
-        ArgumentNullException.ThrowIfNull(nameof(injector));
+        ArgumentNullException.ThrowIfNull(injector);
         var api = endpoint.MapPut(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);
@@ -107,7 +107,7 @@ public static class EndpointExtensions
         Action<IEndpointConventionBuilder>? config = null)
         where TRequest : ICommand
     {
-        ArgumentNullException.ThrowIfNull(nameof(injector));
+        ArgumentNullException.ThrowIfNull(injector);
         var api = endpoint.MapPost(pattern, ([AsParameters] TParameter parameter, [FromBody] TBody body, [FromServices] IEventFlowMediator mediator, CancellationToken cancellation) => mediator.Execute(injector(parameter, body), cancellation    ));
         api.Produces<ErrorResult>(StatusCodes.Status500InternalServerError);
         config?.Invoke(api);

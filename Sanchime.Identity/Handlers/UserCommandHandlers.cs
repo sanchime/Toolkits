@@ -1,6 +1,6 @@
 ﻿namespace Sanchime.Identity.Handlers;
 
-public class UserCommandHandler(IdentityContext context, IMapper mapper) :
+public class UserCommandHandler(IdentityContext context) :
     ICommandHandler<AddUserRolesCommand>,
     ICommandHandler<DeleteUserRolesCommand>
 {

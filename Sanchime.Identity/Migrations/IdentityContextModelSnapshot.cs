@@ -17,27 +17,12 @@ namespace Sanchime.Identity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.HasSequence("IdentityEntitySequence");
-
-            modelBuilder.Entity("MenuRole", b =>
-                {
-                    b.Property<long>("MenusId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("RolesId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("MenusId", "RolesId");
-
-                    b.HasIndex("RolesId");
-
-                    b.ToTable("MenuRole");
-                });
 
             modelBuilder.Entity("PermissionRole", b =>
                 {
@@ -52,6 +37,21 @@ namespace Sanchime.Identity.Migrations
                     b.HasIndex("RolesId");
 
                     b.ToTable("PermissionRole");
+                });
+
+            modelBuilder.Entity("PermissionRoleMenu", b =>
+                {
+                    b.Property<long>("PermissionsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RoleMenuId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PermissionsId", "RoleMenuId");
+
+                    b.HasIndex("RoleMenuId");
+
+                    b.ToTable("PermissionRoleMenu");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -122,6 +122,29 @@ namespace Sanchime.Identity.Migrations
                     b.UseTpcMappingStrategy();
                 });
 
+            modelBuilder.Entity("Sanchime.Identity.Entities.RoleMenu", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("MenuId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RoleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleMenu");
+                });
+
             modelBuilder.Entity("Sanchime.Identity.Entities.Account", b =>
                 {
                     b.HasBaseType("Sanchime.Identity.Entities.IdentityEntity");
@@ -175,9 +198,6 @@ namespace Sanchime.Identity.Migrations
 
                     b.Property<string>("Route")
                         .HasColumnType("text");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
 
                     b.HasIndex("ParentId");
 
@@ -281,21 +301,6 @@ namespace Sanchime.Identity.Migrations
                     b.ToTable("UserGroups");
                 });
 
-            modelBuilder.Entity("MenuRole", b =>
-                {
-                    b.HasOne("Sanchime.Identity.Entities.Menu", null)
-                        .WithMany()
-                        .HasForeignKey("MenusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sanchime.Identity.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PermissionRole", b =>
                 {
                     b.HasOne("Sanchime.Identity.Entities.Permission", null)
@@ -307,6 +312,21 @@ namespace Sanchime.Identity.Migrations
                     b.HasOne("Sanchime.Identity.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PermissionRoleMenu", b =>
+                {
+                    b.HasOne("Sanchime.Identity.Entities.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sanchime.Identity.Entities.RoleMenu", null)
+                        .WithMany()
+                        .HasForeignKey("RoleMenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -324,6 +344,25 @@ namespace Sanchime.Identity.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Sanchime.Identity.Entities.RoleMenu", b =>
+                {
+                    b.HasOne("Sanchime.Identity.Entities.Menu", "Menu")
+                        .WithMany("RoleMenus")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sanchime.Identity.Entities.Role", "Role")
+                        .WithMany("RoleMenus")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Sanchime.Identity.Entities.Menu", b =>
@@ -388,6 +427,8 @@ namespace Sanchime.Identity.Migrations
             modelBuilder.Entity("Sanchime.Identity.Entities.Menu", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("RoleMenus");
                 });
 
             modelBuilder.Entity("Sanchime.Identity.Entities.Permission", b =>
@@ -398,6 +439,8 @@ namespace Sanchime.Identity.Migrations
             modelBuilder.Entity("Sanchime.Identity.Entities.Role", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("RoleMenus");
                 });
 
             modelBuilder.Entity("Sanchime.Identity.Entities.UserGroup", b =>

@@ -19,4 +19,6 @@ public class Role : IdentityEntity
     public IList<Permission> Permissions { get; set; } = [];
 
     public IList<Menu> Menus { get; set; } = [];
+
+    public IList<RoleMenu> RoleMenus { get; set; } = [];
 }

@@ -11,7 +11,7 @@ builder.Services.AddEventFlow(option =>
     option.AddPipeline(typeof(EventFlowLoggingPipeline<,>));
     option.AddPipeline(typeof(EventFlowValidationPipeline<,>));
 });
-builder.Services.AddDbContext<IdentityContext>(option =>
+builder.Services.AddDbContextPool<IdentityContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection"));
 });

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sanchime.EntityFrameworkCore;
 using Sanchime.Identity.Entities;
+using Microsoft.Extensions.Hosting;
 
 namespace Sanchime.Identity.Contexts;
 
@@ -76,13 +77,17 @@ public sealed class IdentityContext(DbContextOptions options, IServiceProvider p
                 .WithMany(x => x.Roles);
 
             entity.HasMany(x => x.Menus)
-                .WithMany(x => x.Roles);
+                .WithMany(x => x.Roles)
+                .UsingEntity<RoleMenu>(
+                rm => rm.HasMany(x => x.Permissions).WithMany()
+            );
 
             entity.HasOne(e => e.Parent)
                 .WithMany(e => e.Children)
                 .HasForeignKey(e => e.ParentId)
                 .IsRequired(false);
         });
+
         modelBuilder.Entity<Permission>(entity =>
         {
             entity.HasOne(e => e.Parent)

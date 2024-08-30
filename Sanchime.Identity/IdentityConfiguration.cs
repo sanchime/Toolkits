@@ -15,7 +15,7 @@ public class IdentityConfiguration
 
     public string DefaultAdministratorPassword { get; set; } = "admin";
 
-    public string DefaultRoleCode { get; set; } = "Administrator";
+    public string DefaultRoleCode { get; set; } = "admin";
 
     public string DefaultRoleName { get; set; } = "管理员";
 }

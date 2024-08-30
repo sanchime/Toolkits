@@ -4,11 +4,11 @@ public class EventFlowLoggingPipeline<TRequest, TResult>(ILogger<EventFlowLoggin
 {
     public async Task<TResult> Handle(TRequest request, Func<TRequest, CancellationToken, Task<TResult>> next, CancellationToken cancellation = default)
     {
-        logger.LogInformation("请求执行: {@Request}", request);
+        logger.LogTrace("请求执行: {@Request}", request);
 
         var result = await next(request, cancellation);
 
-        logger.LogInformation("请求执行完成: {@ResultType}", result?.GetType());
+        logger.LogTrace("请求执行完成: {@ResultType}", result?.GetType());
 
         return result;
     }

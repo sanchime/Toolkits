@@ -8,8 +8,6 @@ public class Menu : IdentityEntity
 
     public required string Name { get; set; }
 
-    public MenuType Type { get; set; }
-
     public string? Icon { get; set; }
 
     public int Order { get; set; }
@@ -27,4 +25,6 @@ public class Menu : IdentityEntity
     public ICollection<Menu> Children { get; } = [];
 
     public IList<Role> Roles { get; set; } = [];
+
+    public IList<RoleMenu> RoleMenus { get; set; } = [];
 }
