@@ -2,6 +2,10 @@
 
 public interface IEvent;
 
+/// <summary>
+/// 事件处理
+/// </summary>
+/// <typeparam name="TEvent"></typeparam>
 public interface IEventHander<TEvent>
     where TEvent : IEvent
 {

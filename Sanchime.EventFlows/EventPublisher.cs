@@ -5,7 +5,7 @@ namespace Sanchime.EventFlows;
 /// <summary>
 /// 事件分发器
 /// </summary>
-internal sealed class EventPublisher(IServiceProvider provider) : IEventPublisher
+internal sealed class EventPublisher(IServiceProvider provider, IEventFlowPipelineDispatcher pipelineDispatcher) : IEventPublisher
 {
     public async Task Publish<TEvent>(TEvent @event, CancellationToken cancellation = default) where TEvent : IEvent
     {
@@ -16,7 +16,12 @@ internal sealed class EventPublisher(IServiceProvider provider) : IEventPublishe
         }
         foreach (var handler in handlers)
         {
-            await handler.Handle(@event, cancellation).ConfigureAwait(false);
+            await pipelineDispatcher.Handle(@event, async (e, c) =>
+            {
+                await handler.Handle(e, c).ConfigureAwait(false);
+
+                return Unit.Value;
+            }, cancellation).ConfigureAwait(false);
         }
     }
 }

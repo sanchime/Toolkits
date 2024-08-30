@@ -13,19 +13,19 @@ public abstract class Entity : IEntity<long>
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly()!;
 
-    public void AddDomainEvent(IDomainEvent domainEvent)
+    public virtual void AddDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents ??= [];
 
         _domainEvents.Add(domainEvent);
     }
 
-    public void RemoveDomainEvent(IDomainEvent domainEvent)
+    public virtual void RemoveDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents?.Remove(domainEvent);
     }
 
-    public void ClearDomainEvents()
+    public virtual void ClearDomainEvents()
     {
         _domainEvents?.Clear();
     }

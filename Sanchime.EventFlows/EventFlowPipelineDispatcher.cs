@@ -5,7 +5,6 @@ namespace Sanchime.EventFlows;
 
 internal sealed class EventFlowPipelineDispatcher(IServiceProvider provider) : IEventFlowPipelineDispatcher
 {
-
     private readonly ConcurrentDictionary<Type, Delegate> _pipelines = new();
 
     public async Task<TResult> Handle<TRequest, TResult>(TRequest request,
@@ -19,12 +18,7 @@ internal sealed class EventFlowPipelineDispatcher(IServiceProvider provider) : I
             return GetExecuteChain();
         });
 
-
-        // var chain = GetExecuteChain();
-
-
         return await chain(request, cancellation);
-
 
         Func<TRequest, CancellationToken, Task<TResult>> GetExecuteChain()
         {
