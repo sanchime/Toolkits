@@ -10,7 +10,6 @@ internal sealed class QueryRequester(IServiceProvider provider, IEventFlowPipeli
     public Task<TQueriedResult> Request<TQuery, TQueriedResult>(TQuery query, CancellationToken cancellation = default)
         where TQuery : IQuery<TQueriedResult>
     {
-
         var handler = provider.GetRequiredService<IQueryHandler<TQuery, TQueriedResult>>();
         return pipelineDispatcher.Handle(query, handler.Handle, cancellation);
     }

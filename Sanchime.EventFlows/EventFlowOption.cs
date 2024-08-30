@@ -9,6 +9,8 @@ public sealed record class EventFlowOption
 
     public IServiceCollection Services { get; }
 
+    public ServiceLifetime Lifetime { get; set; } = ServiceLifetime.Scoped;
+
     public EventFlowOption(IServiceCollection services)
     {
         Services = services;

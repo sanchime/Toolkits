@@ -14,7 +14,19 @@ internal sealed class EventFlowPipelineDispatcher(IServiceProvider provider) : I
         where TRequest : notnull
     {
 
-        Func<TRequest, CancellationToken, Task<TResult>> chain = (Func<TRequest, CancellationToken, Task<TResult>>)_pipelines.GetOrAdd(typeof(TRequest), type =>
+        var chain = (Func<TRequest, CancellationToken, Task<TResult>>)_pipelines.GetOrAdd(typeof(TRequest), type =>
+        {
+            return GetExecuteChain();
+        });
+
+
+        // var chain = GetExecuteChain();
+
+
+        return await chain(request, cancellation);
+
+
+        Func<TRequest, CancellationToken, Task<TResult>> GetExecuteChain()
         {
             var pipelines = provider.GetServices<IEventFlowPipeline<TRequest, TResult>>();
 
@@ -27,8 +39,6 @@ internal sealed class EventFlowPipelineDispatcher(IServiceProvider provider) : I
             }
 
             return chain;
-        });
-
-        return await chain(request, cancellation);
+        }
     }
 }
