@@ -97,8 +97,8 @@ public abstract class SanchimeDbContext : DbContext, IUnitOfWork
 
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
-        await Mediator.DispatchDomainEventsAsync(this);
         await this.SaveChangesAsync(cancellationToken);
+        await Mediator.DispatchDomainEventsAsync(this, cancellationToken);
 
         return true;
     }
