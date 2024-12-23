@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Hosting;
+using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Sanchime.AspNetCore;
@@ -16,8 +17,8 @@ public static class WebApplicationExtensions
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.MapScalarApiReference(); // scalar/v1
+            app.MapOpenApi();
         }
 
         app.UseExceptionHandler(options =>

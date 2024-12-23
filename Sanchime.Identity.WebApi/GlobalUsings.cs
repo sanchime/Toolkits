@@ -16,6 +16,6 @@ global using Sanchime.Identity.Queries;
 global using Sanchime.Identity.Responses;
 global using Sanchime.Identity.WebApi;
 global using Sanchime.Identity.WebApi.Requests;
-global using Sanchime.ProjectManager.WebApi.ApiGroups;
+global using Sanchime.Identity.WebApi.ApiGroups;
 global using Microsoft.Extensions.Options;
 global using Sanchime.DependencyInjection;

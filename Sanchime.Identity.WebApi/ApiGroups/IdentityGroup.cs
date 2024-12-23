@@ -1,4 +1,4 @@
-﻿namespace Sanchime.ProjectManager.WebApi.ApiGroups;
+﻿namespace Sanchime.Identity.WebApi.ApiGroups;
 
 public static class IdentityGroup
 {

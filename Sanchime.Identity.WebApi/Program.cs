@@ -1,3 +1,5 @@
+using Sanchime.Identity.WebApi.ApiGroups;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.PrimitiveConfigure();
